@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+    background: linear-gradient(to bottom, #000428, #004e92);
+    color:white;
+    text-align:center;
+}
+
+/* PAGE 1 */
+#page1{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+h1,h2{
+    opacity:0;
+    transition:1.5s;
+    margin:10px;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    position:absolute;
+}
+
+#yes{
+    background:#28a745;
+    color:white;
+    left:30%;
+    bottom:80px;
+}
+
+#no{
+    background:#dc3545;
+    color:white;
+    left:55%;
+    bottom:80px;
+}
+
+/* PAGE 2 */
+#page2{
+    display:none;
+    height:100vh;
+    position:relative;
+}
+
+.content{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+#finalText{
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+#ring{
+    font-size:80px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px gold; }
+    to { text-shadow: 0 0 30px yellow; }
+}
+
+/* Floating Hearts */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+    from{ transform:translateY(0); opacity:1; }
+    to{ transform:translateY(-110vh); opacity:0; }
+}
+
+canvas{
+    position:absolute;
+    top:0;
+    left:0;
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+    <source src="YOUR_AUDIO_LINK_HERE" type="audio/mp3">
+</audio>
+
+<!-- PAGE 1 -->
+<div id="page1">
+    <h1 id="l1">Happy Valentine's Day ❤️</h1>
+    <h2 id="l2">I Love You So Much 💖</h2>
+    <h2 id="l3">Will You Marry Me? 💍</h2>
+
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 😢</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2">
+    <canvas id="fireworks"></canvas>
+
+    <div class="content">
+        <div id="finalText">
+            With this ring, I promise to treasure you forever and beyond
+        </div>
+
+        <div id="ring">💍</div>
+    </div>
+</div>
+
+<script>
+
+const yesBtn=document.getElementById("yes");
+const noBtn=document.getElementById("no");
+const page1=document.getElementById("page1");
+const page2=document.getElementById("page2");
+const music=document.getElementById("bgMusic");
+
+/* Text fade in */
+setTimeout(()=>l1.style.opacity=1,1000);
+setTimeout(()=>l2.style.opacity=1,3000);
+setTimeout(()=>l3.style.opacity=1,5000);
+
+/* Move NO button */
+function moveBtn(){
+    const x=Math.random()*(window.innerWidth-120);
+    const y=Math.random()*(window.innerHeight-120);
+    noBtn.style.left=x+"px";
+    noBtn.style.top=y+"px";
+}
+noBtn.addEventListener("mouseover",moveBtn);
+noBtn.addEventListener("touchstart",moveBtn);
+
+/* YES CLICK */
+yesBtn.addEventListener("click", function(){
+    music.play();   // play song immediately
+    page1.style.display="none";
+    page2.style.display="block";
+    startFireworks();
+});
+
+/* Floating Hearts */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,500);
+
+/* Fireworks */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+function startFireworks(){
+    setInterval(()=>{
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        for(let i=0;i<60;i++){
+            ctx.beginPath();
+            ctx.arc(Math.random()*canvas.width,
+                    Math.random()*canvas.height,
+                    3,0,Math.PI*2);
+            ctx.fillStyle="hsl("+Math.random()*360+",100%,50%)";
+            ctx.fill();
+        }
+    },300);
+}
+
+</script>
+
+</body>
+</html>
