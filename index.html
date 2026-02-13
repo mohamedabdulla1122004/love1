@@ -32,26 +32,37 @@ h1,h2{
     text-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
-button{
-    padding:12px 25px;
+/* BUTTONS FIXED */
+.buttonContainer{
+    position:absolute;
+    bottom:80px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+}
+
+.buttonContainer button{
+    padding:14px 35px;
     font-size:18px;
     border:none;
-    border-radius:25px;
+    border-radius:40px;
     cursor:pointer;
-    position:absolute;
     color:white;
+    min-width:130px;
+    transition:0.3s;
 }
 
 #yes{
     background:#28a745;
-    left:30%;
-    bottom:80px;
 }
 
 #no{
     background:#dc3545;
-    left:55%;
-    bottom:80px;
+}
+
+.buttonContainer button:hover{
+    transform:scale(1.05);
 }
 
 /* PAGE 2 */
@@ -69,7 +80,7 @@ button{
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    background:rgba(255,255,255,0.8);
+    background:rgba(255,255,255,0.85);
     backdrop-filter:blur(12px);
     padding:45px 55px;
     border-radius:30px;
@@ -106,7 +117,7 @@ button{
     to{ text-shadow:0 0 60px #ffd700; }
 }
 
-/* PERFECT NAMES ALIGNMENT */
+/* PERFECT NAME ALIGNMENT */
 #coupleNames{
     margin-top:25px;
     font-size:38px;
@@ -170,7 +181,7 @@ button{
     to{ transform:translateY(-110vh); opacity:0; }
 }
 
-/* Fireworks canvas */
+/* Fireworks */
 canvas{
     position:absolute;
     top:0;
@@ -190,8 +201,11 @@ canvas{
     <h1 id="l1">Happy Valentine's Day ❤️</h1>
     <h2 id="l2">I Love You So Much 💖</h2>
     <h2 id="l3">Will You Marry Me? 💍</h2>
-    <button id="yes">Yes 💖</button>
-    <button id="no">No 😢</button>
+
+    <div class="buttonContainer">
+        <button id="yes">Yes 💖</button>
+        <button id="no">No 😢</button>
+    </div>
 </div>
 
 <div id="page2">
@@ -226,8 +240,9 @@ setTimeout(()=>l3.style.opacity=1,5000);
 
 /* Move NO */
 function moveBtn(){
-    const x=Math.random()*(window.innerWidth-120);
-    const y=Math.random()*(window.innerHeight-120);
+    const x=Math.random()*(window.innerWidth-150);
+    const y=Math.random()*(window.innerHeight-150);
+    noBtn.style.position="absolute";
     noBtn.style.left=x+"px";
     noBtn.style.top=y+"px";
 }
@@ -247,7 +262,7 @@ yesBtn.addEventListener("click", function(){
     },1000);
 });
 
-/* Floating Hearts (both pages) */
+/* Floating Hearts */
 function createHeart(){
     const heart=document.createElement("div");
     heart.classList.add("heart");
@@ -282,7 +297,7 @@ canvas.height=window.innerHeight;
 function startFireworks(){
     setInterval(()=>{
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        for(let i=0;i<70;i++){
+        for(let i=0;i<80;i++){
             ctx.beginPath();
             ctx.arc(Math.random()*canvas.width,
                     Math.random()*canvas.height,
@@ -296,4 +311,3 @@ function startFireworks(){
 
 </body>
 </html>
-
